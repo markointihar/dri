@@ -40,4 +40,16 @@ function dodajZunanjiIzvajalec($naziv, $kontaktna_stevilka, $kontaktna_oseba, $e
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 }
+
+function pridobiZunanjiIzvajalec($id) {
+    global $povezava;
+
+    $stmt = $povezava->prepare("SELECT * FROM zunanji_izvajalec WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
 ?>
