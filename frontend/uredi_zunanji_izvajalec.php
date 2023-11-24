@@ -34,7 +34,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
     <h2 class="mt-5">Urejanje zunanjega izvajalca</h2>
 
     <!-- Obrazec za urejanje zunanjega izvajalca -->
-    <form method="POST" action="../backend/posodobi_zunanji_izvajalec.php">
+    <form method="POST" action="../backend/zunanji_izvajalci.php">
         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
         <div class="mb-3">
             <label for="naziv" class="form-label">Naziv:</label>

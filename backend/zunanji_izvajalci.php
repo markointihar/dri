@@ -30,6 +30,38 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function dodajZunanjiIzvajalec($naziv, $kontaktna_stevilka, $kontaktna_oseba, $email){
+    global $povezava;
+
+    $stmt = $povezava->prepare("INSERT INTO zunanji_izvajalec (naziv, kontaktna_stevilka, kontaktna_oseba, email) VALUES (:naziv, :kontaktna_stevilka, :kontaktna_oseba, :email)");
+    $stmt->bindParam(':naziv', $naziv);
+    $stmt->bindParam(':kontaktna_stevilka', $kontaktna_stevilka);
+    $stmt->bindParam(':kontaktna_oseba', $kontaktna_oseba);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+}
+
+function pridobiZunanjiIzvajalec($id) {
+    global $povezava;
+
+    $stmt = $povezava->prepare("SELECT * FROM zunanji_izvajalec WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function posodobiZunanjiIzvajalec($id, $naziv, $kontaktna_stevilka, $kontaktna_oseba, $email) {
+    global $povezava;
+
+    $stmt = $povezava->prepare("UPDATE zunanji_izvajalec SET naziv = :naziv, kontaktna_stevilka = :kontaktna_stevilka, kontaktna_oseba = :kontaktna_oseba, email = :email WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':naziv', $naziv);
+    $stmt->bindParam(':kontaktna_stevilka', $kontaktna_stevilka);
+    $stmt->bindParam(':kontaktna_oseba', $kontaktna_oseba);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+}
 
 ?>
 

@@ -1,6 +1,19 @@
 <?php
 include "../backend/server.php";
 
+include "../backend/login_obdelava.php";
+
+
+session_start();
+
+// Preverimo, ali je uporabnik prijavljen
+if (!isset($_SESSION['uporabnik_id'])) {
+    // Uporabnik ni prijavljen, preusmerimo ga na login stran
+    header("Location: login.php");
+    exit();
+}
+
+
 
 $stmt = $povezava->query("SELECT * FROM zunanji_izvajalec");
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -52,7 +65,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Kontaktna številka</th>
                 <th>Kontaktna oseba</th>
                 <th>E-pošta</th>
-                <th>Opcije</th> <!-- Dodali stolpec za urejanje -->
+                <th>Opcije</th> 
             </tr>
         </thead>
         <tbody>
@@ -72,8 +85,34 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 
 
+    <!-- Gumb za izpis -->
+<button type="button" onclick="odjava()">Izbriši sejo</button>
+
+<!-- Vaša obstoječa vsebina -->
+<!-- ... -->
 
 
+
+    <script>
+        function odjava() {
+            // Pošlji zahtevek na strežnik, da seja uniči
+            // To lahko naredite s pomočjo Ajax zahtevka
+            // V tem primeru uporabljamo jQuery za poenostavitev
+            $.ajax({
+                type: 'POST',
+                url: '../backend/odjava.php', // Navedite pravilno pot do skripta za izbris seje
+                success: function(response) {
+                    // Uspešno izbrisano
+                    location.reload();
+                    // Dodajte druge ukrepe, ki jih želite izvesti po izbrisu seje
+                },
+                error: function(error) {
+                    // Napaka pri izbrisu
+                    alert('Napaka pri izbrisu seje. '+ response.error);
+                }
+            });
+        }
+</script>
 
     <!-- Vključitev Bootstrap JavaScript in jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
