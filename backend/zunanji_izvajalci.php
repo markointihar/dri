@@ -64,4 +64,3 @@ function posodobiZunanjiIzvajalec($id, $naziv, $kontaktna_stevilka, $kontaktna_o
 }
 
 ?>
-
